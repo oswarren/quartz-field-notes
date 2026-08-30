@@ -1,0 +1,36 @@
+Quartz 5 Themes (Field Notes, Phosphor, Broadsheet)
+Licence, version 1.0, August 2026
+
+Plain-language summary first, then the terms. The summary is not a substitute for the terms, but they say the same thing.
+
+WHAT YOU CAN DO
+- Use the themes on any number of your own sites, personal or commercial. A site for a client counts as yours for this purpose once you have delivered it to them.
+- Modify the themes as much as you like.
+- Keep using them forever. There is no subscription and no renewal.
+
+WHAT YOU CANNOT DO
+- Redistribute, resell, sublicense, or share the theme files themselves (the SCSS, the JSON palettes, the installer), modified or not, as a product, a download, a template, or a repository. Your built site is yours; the source files in this package are not for passing on.
+- Present the themes as your own work for sale.
+
+THE TERMS
+
+1. Grant. On purchase (or free download, for the free edition), you receive a non-exclusive, non-transferable, perpetual licence to use, modify, and build with the files in this package ("the Themes") on websites that you own or operate, or that you build for a client, with no limit on the number of sites.
+
+2. Output. The rendered websites you build with the Themes are entirely yours. No attribution is required. Commercial use of such websites is permitted.
+
+3. Restrictions. You may not redistribute the Themes' source files, in original or modified form, as a standalone product or as part of a product whose main value is the Themes. You may not sublicense the Themes. You may not remove this licence from the package if you pass a copy to a collaborator working on the same site.
+
+4. Collaborators. People working on your site (developers, editors, a client who takes over the site) may use the copy installed in that site's repository without a separate purchase.
+
+5. Third-party components. The Themes include no third-party code. They reference Google Fonts families by name; those fonts are served under their own licences by Google or by you, and are not part of this package. Quartz itself is separate software under the MIT licence.
+
+6. Support and updates. The Themes are sold as they are, for the Quartz version stated in the README. There is no promise of support, updates, or compatibility with future Quartz versions. If updates are released, they will be made available through the same store listing at no charge.
+
+7. No warranty. The Themes are provided "as is", without warranty of any kind. The author is not liable for any damages arising from their use, to the extent permitted by law.
+
+8. Termination. This licence ends automatically if you breach section 3. On termination you must stop distributing the Themes; sites already built may remain online.
+
+FREE EDITION ADDENDUM (August 2026)
+Forking the quartz-field-notes repository on GitHub for personal use is permitted, notwithstanding section 3.
+
+Questions about edge cases: the README has the contact address.

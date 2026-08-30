@@ -1,0 +1,40 @@
+{
+  "id": "field-notes",
+  "name": "Field Notes",
+  "description": "One warm reading column, book margins, fleurons, dotted ink links. For gardens that want to read like a well-set paperback.",
+  "typography": {
+    "title": "Fraunces",
+    "header": "Fraunces",
+    "body": "Newsreader",
+    "code": "JetBrains Mono"
+  },
+  "defaultPalette": "moss",
+  "palettes": {
+    "moss": {
+      "note": "Warm paper, moss green links, ochre hover.",
+      "lightMode": {
+        "light": "#f6f2e8",
+        "lightgray": "#e4dcc8",
+        "gray": "#98907a",
+        "darkgray": "#3a382e",
+        "dark": "#26231b",
+        "secondary": "#4d6b44",
+        "tertiary": "#a4763a",
+        "highlight": "rgba(77, 107, 68, 0.08)",
+        "textHighlight": "#e8d98a66"
+      },
+      "darkMode": {
+        "light": "#181e18",
+        "lightgray": "#2c352c",
+        "gray": "#75816f",
+        "darkgray": "#d3d9c8",
+        "dark": "#eff3e4",
+        "secondary": "#9cbd8b",
+        "tertiary": "#d2a05e",
+        "highlight": "rgba(156, 189, 139, 0.08)",
+        "textHighlight": "#7a6d2a88"
+      }
+    }
+  },
+  "edition": "free edition; the full pack (slate palette, Phosphor, Broadsheet) is at https://opensourcewarren.gumroad.com/l/quartz5-themes"
+}

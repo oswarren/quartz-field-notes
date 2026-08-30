@@ -1,0 +1,495 @@
+@use "./variables.scss" as *;
+
+/* ============================================================
+   Field Notes, a theme for Quartz 5 (free edition)
+   Full pack with Phosphor, Broadsheet and the slate palette: https://opensourcewarren.gumroad.com/l/quartz5-themes
+   One warm reading column with book margins. The left sidebar
+   becomes a slim top bar (site name, search, toggles), the right
+   sidebar becomes a quiet coda under each note.
+
+   Knobs: the five things people change most. Edit, rebuild.
+   ============================================================ */
+
+$measure: 42rem; // width of the reading column
+$base-size: 17px; // root font size
+$ornament: "\2767"; // fleuron before the site name (set to "" for none)
+$rule-ornament: "\2766"; // ornament that replaces horizontal rules
+$signoff: ""; // short line above the footer, e.g. "tended by hand"
+
+/* Fonts are declared here as well as in theme.json. Quartz 5's stock
+   fonts plugin emits its own font variables in a later cascade layer
+   and would otherwise override the config; an unlayered :root wins. */
+:root {
+  --titleFont: "Fraunces", Georgia, serif;
+  --headerFont: "Fraunces", Georgia, serif;
+  --bodyFont: "Newsreader", Georgia, serif;
+  --codeFont: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* ---------- layout: one column ---------- */
+
+.page > #quartz-body {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto auto;
+  grid-template-areas:
+    "grid-sidebar-left"
+    "grid-header"
+    "grid-center"
+    "grid-sidebar-right"
+    "grid-footer";
+  max-width: $measure;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  row-gap: 0;
+
+  & .sidebar {
+    position: static;
+    height: auto;
+    padding: 0;
+  }
+
+  /* the old left sidebar is now a top bar */
+  & .sidebar.left {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 2.25rem 0 1.1rem 0;
+    border-bottom: 1px solid var(--lightgray);
+    margin-bottom: 2.5rem;
+  }
+
+  /* the old right sidebar sits under the note */
+  & .sidebar.right {
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 2rem;
+    & > * {
+      flex: none;
+      max-height: none;
+    }
+  }
+
+  & .page-header {
+    margin-top: 0;
+  }
+}
+
+/* components that do not belong in a one-column reading theme */
+.explorer,
+.graph,
+.toc,
+.spacer {
+  display: none;
+}
+
+/* ---------- top bar ---------- */
+
+.page-title {
+  font-family: var(--titleFont);
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0;
+
+  a {
+    color: var(--dark);
+    background: none;
+  }
+
+  &::before {
+    content: $ornament "\00a0\00a0";
+    color: var(--secondary);
+    letter-spacing: 0;
+  }
+}
+
+.toolbar,
+.sidebar.left > .flex-component {
+  align-items: center;
+}
+
+.search {
+  max-width: none;
+  & > .search-button {
+    border-radius: 999px;
+    border: 1px solid var(--lightgray);
+    background-color: transparent;
+    height: 2rem;
+    padding: 0 0.9rem;
+    & > p {
+      font-family: var(--bodyFont);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+  }
+}
+
+.darkmode,
+.readermode {
+  & svg {
+    fill: var(--gray);
+  }
+  &:hover svg {
+    fill: var(--secondary);
+  }
+}
+
+/* ---------- reading type ---------- */
+
+html {
+  font-size: $base-size;
+}
+
+body {
+  line-height: 1.72;
+  background-image: radial-gradient(
+    120% 70% at 50% 0%,
+    color-mix(in srgb, var(--dark) 4%, transparent),
+    transparent 70%
+  );
+}
+
+/* `body h1` outranks the stock fonts plugin, which hardcodes `h1 { font-family }` */
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6,
+.article-title {
+  font-family: var(--headerFont);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.article-title {
+  font-size: 2.5rem;
+  line-height: 1.12;
+  margin: 0 0 0.5rem 0;
+}
+
+article h2 {
+  font-size: 1.45rem;
+  border-bottom: 1px solid var(--lightgray);
+  padding-bottom: 0.25rem;
+  margin-top: 2.6rem;
+}
+
+article h3 {
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 400;
+  margin-top: 2rem;
+}
+
+.content-meta {
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin-bottom: 2rem;
+}
+
+.breadcrumb-container {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 1.25rem 0;
+  & a {
+    color: var(--gray);
+    background: none;
+    font-weight: 400;
+  }
+  & .breadcrumb-element p {
+    color: var(--gray);
+  }
+}
+
+/* links: ink annotations, not highlighter pills */
+a.internal {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+article a.internal,
+.popover a.internal,
+.section a.internal,
+.backlinks a.internal,
+.page-footer a.internal {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: var(--secondary);
+  font-weight: 500;
+  border-bottom: 1px dotted color-mix(in srgb, var(--secondary) 65%, transparent);
+
+  &:hover {
+    color: var(--tertiary);
+    border-bottom-color: var(--tertiary);
+    border-bottom-style: solid;
+  }
+}
+
+a.internal.tag-link {
+  font-family: var(--codeFont);
+  font-size: 0.8em;
+  border-bottom: none;
+  &::before {
+    content: "#";
+    color: var(--gray);
+  }
+}
+
+article a.external {
+  color: var(--secondary);
+  font-weight: 500;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  &:hover {
+    color: var(--tertiary);
+  }
+  & .external-icon > path {
+    fill: var(--gray);
+  }
+}
+
+/* ---------- prose furniture ---------- */
+
+article ul > li::marker,
+article ol > li::marker {
+  color: var(--secondary);
+}
+
+article hr {
+  border: none;
+  height: auto;
+  background: none;
+  margin: 3rem auto;
+  &::after {
+    content: $rule-ornament;
+    display: block;
+    text-align: center;
+    color: var(--gray);
+    font-size: 1.1rem;
+  }
+}
+
+blockquote {
+  font-style: italic;
+  border-left: 2px solid var(--secondary);
+  background: var(--highlight);
+  padding: 0.5rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+article pre {
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+code {
+  font-size: 0.85em;
+  border-radius: 4px;
+}
+
+.table-container {
+  font-size: 0.92rem;
+  & > table {
+    border-collapse: collapse;
+    width: auto;
+    min-width: 100%;
+  }
+  & th {
+    font-family: var(--headerFont);
+    font-weight: 400;
+    font-style: italic;
+    text-align: left;
+    border-bottom: 1px solid var(--dark);
+    padding: 0.4rem 0.6rem;
+  }
+  & td {
+    border-bottom: 1px solid var(--lightgray);
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+article img {
+  border-radius: 4px;
+}
+
+.text-highlight {
+  border-radius: 2px;
+  padding: 0 0.15rem;
+}
+
+/* callouts: one hairline, no colour slabs */
+.callout {
+  border: 1px solid var(--lightgray);
+  border-left: 2px solid var(--color);
+  border-radius: 0 4px 4px 0;
+  background-color: transparent;
+  margin: 1.5rem 0;
+  & > .callout-title {
+    font-family: var(--headerFont);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1rem;
+    padding: 0.6rem 0 0.2rem 0;
+    & > .callout-title-inner > p {
+      color: var(--dark);
+    }
+  }
+}
+
+.note-properties {
+  border: none;
+  border-top: 1px solid var(--lightgray);
+  border-bottom: 1px solid var(--lightgray);
+  border-radius: 0;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.footnotes {
+  font-size: 0.88rem;
+  color: var(--gray);
+}
+
+/* folder and tag listing pages */
+ul.section-ul {
+  margin-top: 1.5rem;
+}
+li.section-li > .section {
+  & > .desc > h3 {
+    font-weight: 400;
+    font-size: 1.15rem;
+    margin: 0;
+  }
+  & > .meta {
+    font-style: italic;
+    color: var(--gray);
+  }
+}
+
+/* ---------- coda: backlinks as "mentioned in" ---------- */
+
+.backlinks {
+  border-top: 1px solid var(--lightgray);
+  padding-top: 1.25rem;
+
+  & > h3 {
+    font-size: 0; /* hide the stock label, replace below */
+    margin: 0 0 0.4rem 0;
+    &::before {
+      content: "mentioned in";
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-style: normal;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gray);
+    }
+  }
+
+  & > ul.overflow {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    max-height: none;
+    & > li {
+      margin: 0.2rem 0;
+      &::marker {
+        content: none;
+      }
+    }
+  }
+}
+
+/* ---------- popovers: papery cards ---------- */
+
+.popover > .popover-inner {
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 14px 40px rgba(20, 24, 16, 0.14);
+  font-size: 0.9rem;
+}
+
+/* ---------- search modal ---------- */
+
+.search > .search-container > .search-space {
+  border-radius: 8px;
+  border: 1px solid var(--lightgray);
+  box-shadow: 0 20px 60px rgba(20, 24, 16, 0.18);
+  & > input {
+    font-family: var(--bodyFont);
+    font-style: italic;
+    font-size: 1.1rem;
+    border-radius: 8px 8px 0 0;
+  }
+  & .result-card > h3 {
+    font-weight: 400;
+  }
+}
+
+/* ---------- footer ---------- */
+
+footer {
+  margin-top: 3rem;
+  text-align: center;
+  opacity: 1;
+  font-size: 0.8rem;
+  color: var(--gray);
+  & p {
+    margin: 0 0 0.3rem 0;
+    color: var(--gray);
+  }
+  & ul {
+    justify-content: center;
+    margin: 0;
+    & a {
+      color: var(--gray);
+      font-weight: 400;
+      &:hover {
+        color: var(--secondary);
+      }
+    }
+  }
+  @if $signoff != "" {
+    &::before {
+      content: $signoff;
+      display: block;
+      font-style: italic;
+      margin-bottom: 0.75rem;
+      color: var(--gray);
+    }
+  }
+}
+
+/* the stock rule between article and page footer (Quartz draws hr as a 1px block) */
+.center > hr {
+  display: none;
+}
+
+/* ---------- mobile ---------- */
+
+@media all and ($mobile) {
+  .table-container th,
+  .table-container td {
+    white-space: nowrap; /* wide tables scroll sideways instead of squeezing */
+  }
+  .page > #quartz-body {
+    padding: 0 1.1rem;
+    & .sidebar.left {
+      padding-top: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+  .article-title {
+    font-size: 2rem;
+  }
+}
