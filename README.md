@@ -82,4 +82,8 @@ The themes only rely on Quartz's public class names (`.page-title`, `.sidebar`, 
 
 Questions or a broken build: open an issue here (or reply through your Gumroad receipt if you downloaded it there) and say which theme, which palette, and which Quartz version; those get read.
 
+## Credits
+
+Quartz is created by Jacky Zhao and maintained by the Quartz community: https://github.com/jackyzha0/quartz. These themes are an independent stylesheet and installer for it, not affiliated with or endorsed by the Quartz project.
+
 Version 1.0, August 2026.
